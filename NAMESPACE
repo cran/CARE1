@@ -1,0 +1,7 @@
+export(as.record)
+export(CARE1.print)
+export(estN.n)
+export(estN.pair)
+export(estN.para)
+export(estN)
+export(estN.stat)
