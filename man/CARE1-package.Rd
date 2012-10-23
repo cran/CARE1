@@ -3,13 +3,14 @@
 \alias{CARE1}
 \docType{package}
 \title{Statistical package for population size estimation in capture-recapture models.}
-\description{The R package CARE1, the first part of the program CARE (Capture-Recapture) in http://chao.stat.nthu.edu.tw/softwareCE.html, can be used to analyze epidemiological data via sample coverage approach (Chao et al. 2001a). Based on the input of records from several incomplete lists (or samples) of individuals, the R package CARE1 provides output of population size estimate and related statistics. The maximum number of lists is 5 for version 1.0.}
+\description{The R package CARE1, the first part of the program CARE (Capture-Recapture) in 
+http://chao.stat.nthu.edu.tw/softwareCE.html, can be used to analyze epidemiological data via sample coverage approach (Chao et al. 2001a). Based on the input of records from several incomplete lists (or samples) of individuals, the R package CARE1 provides output of population size estimate and related statistics.}
 \details{
 \tabular{ll}{
 Package: \tab CARE1\cr
 Type: \tab Package\cr
-Version: \tab 1.0.2\cr
-Date: \tab 2012-02-07\cr
+Version: \tab 1.1.0\cr
+Date: \tab 2012-10-23\cr
 License: \tab GPL-3\cr
 LazyLoad: \tab yes\cr
 }

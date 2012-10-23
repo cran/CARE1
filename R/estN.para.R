@@ -1,26 +1,25 @@
-#' estimated mean probabilities depending on the estimate of N, and estimated coefficient of covariation (CCV) depending on the estimate of N.
-#' @title Parameter  estimates
-#' @param z the vector of capture histories or ascertainment records.
-#' @param nhat the estimation of population size.
-#' @return Parameter  estimates
-#' @author T.C. Hsieh
-#' @note u:estimated mean probabilities depending on the estimate of N.\cr
-#' r:estimated coefficient of covariation (CCV) depending on the estimate of N.
-#' @references Chao A, Tsay P, Lin SH, Shau WY, Chao DY. 2001. The applications of capture recapture models to epidemiological data. Statistics in Medicine 20(20): 3123-3157.
-#' @examples data(HAV)
-#' estN.para(HAV)
-#' @export
+estN.para <-
+function(z, nhat){
+t <- as.integer(log(length(z) + 1) / log(2))
+Mat <- matrix(0, ncol = t, nrow = 2 ^ t - 1)
+for(i in 1:(2 ^ t - 1)) Mat[i,] <- rev(as.integer(intToBits(i))[1:t])
+ni <- sapply(1:t, function(k) Sub.n(z, t, Mat, k))
+ui <- ni / nhat
+names(ui) <- sapply(1:t, function(k) paste("u", k, sep=""))
+rij <- matrix(0, t, t)
+label <- matrix(0, t, t)
 
-estN.para=function(z,nhat){
-	z=as.vector(unlist(z))
-	nhat=unlist(nhat)
-	if(length(z) == 7)
-		est = estN.para3(z,nhat)
-	else if(length(z) == 15)
-		est = estN.para4(z,nhat)		
-	else if(length(z) == 31)
-		est = estN.para5(z,nhat)
-	else "Invalid argument error! Please input valid ascertainment records."
-	return(est)
+for(i in 1:(t - 1)){
+for(j in (i + 1):t){
+ni <- sum(z[which(Mat[,i] == 1)])
+nj <- sum(z[which(Mat[,j] == 1)])
+nij <- sum(z[which(Mat[,i] == 1 & Mat[,j] == 1)])
+rij[i,j] = nhat * nij / (ni * nj) - 1
+label[i,j] <- paste("r", i, j, sep="")
 }
-
+}
+rij <- rij[upper.tri(rij)]
+names(rij) <-  label[upper.tri(label)]
+para <- c(ui, rij)
+return(para)
+}
